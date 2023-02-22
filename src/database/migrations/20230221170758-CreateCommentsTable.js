@@ -21,7 +21,7 @@ module.exports = {
           model: 'posts',
           key: 'id',
         },
-        field: 'post_id',
+        field: 'post_id', // o nome da coluna na tabela comments
       }
      })
   },
