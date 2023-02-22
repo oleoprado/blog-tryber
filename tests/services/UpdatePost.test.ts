@@ -11,6 +11,7 @@ describe('Testes de serviço: Update Post', function () {
   });
 
   it('Deve atualizar um Post corretamente', async function () {
+    const reqParams: number = 1;
     const inputMock: IPost = {
       title: 'Jest com Typescript',
       content: 'Não aprendemos a testar codigo em Typescript utilizando Jest',
@@ -21,11 +22,11 @@ describe('Testes de serviço: Update Post', function () {
       content: 'Não aprendemos a testar codigo em Typescript utilizando Jest',
     });
 
-    // Sinon.stub(Model, 'update').resolves();
+    Sinon.stub(Model, 'update').resolves();
 
-    // const service = new PostService();
-    // const result = await service.update(inputMock);
+    const service = new PostService();
+    const result = await service.update(inputMock);
 
-    // expect(result).to.be.equal(outputMock);
+    expect(result).to.be.equal(outputMock);
   })
 })

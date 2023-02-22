@@ -23,5 +23,5 @@ describe('Teste de serviço: FindById Post', function() {
     const result = await service.readById(inputMock);
 
     expect(result).to.be.equal(outputMock);
-  })
+  });
 })
