@@ -22,9 +22,10 @@ describe('Testes de serviço: Create Post', function () {
     });
 
     Sinon.stub(Model, 'create').resolves(outputMock); // mockando o metodo create
+
     const service = new PostService();
     const result = await service.create(inputMock);
 
     expect(result).to.be.equal(outputMock);
-  })
+  });
 })
