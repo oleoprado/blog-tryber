@@ -4,6 +4,7 @@ import {
   STRING,
 } from "sequelize";
 import db from '.';
+import Post from "./Post";
 
 class Comment extends Model {
   declare readonly id: number;
@@ -32,6 +33,9 @@ Comment.init({
   underscored: true,
   timestamps: false,
   modelName: 'comments'
-})
+});
+
+Comment.belongsTo(Post, { foreignKey: 'post_id', as: 'id_post'});
+Post.hasMany(Comment, { foreignKey: 'post_id', as: 'id_post'});
 
 export default Comment;
