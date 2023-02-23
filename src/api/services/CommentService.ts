@@ -20,6 +20,13 @@ export default class CommentService implements IServiceComment {
     return comment as Comment;
   }
 
+  async update(id: number, dto: IComment): Promise<Comment> {
+    await this._verifyIFCommentExist(id);
+    await this.model.update({ ...dto }, { where: { id }});
+    const comment = await this.model.findByPk(id);
+    return comment as Comment;
+  }
+
   private async _verifyIFCommentExist(id: number): Promise<void> {
     const comment = await this.model.findByPk(id);
     if (!comment) throw new Error(`Comment with id ${id} not found`);
