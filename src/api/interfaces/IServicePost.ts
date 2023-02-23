@@ -6,4 +6,5 @@ export default interface IServicePost {
   readAll(): Promise<Post[]>;
   readById(id: number): Promise<Post | null>;
   update(id: number, dto: IPost): Promise<Post>;
+  delete(id: number): Promise<void>;
 }

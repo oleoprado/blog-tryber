@@ -25,4 +25,10 @@ export default class PostService implements IServicePost {
 
     return post;
   }
+
+  async delete(id: number): Promise<void> {
+    const post = await this.model.findByPk(id);
+    if (!post) throw new Error(`Post with id ${id} not found`);
+    await this.model.destroy({ where: { id } });
+  }
 }
