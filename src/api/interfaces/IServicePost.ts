@@ -5,5 +5,5 @@ export default interface IServicePost {
   create(dto: IPost): Promise<Post>;
   readAll(): Promise<Post[]>;
   readById(id: number): Promise<Post | null>;
-  upadte(): Promise<void>;
+  update(id: number, dto: IPost): Promise<Post>;
 }

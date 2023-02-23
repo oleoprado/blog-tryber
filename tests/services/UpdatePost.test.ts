@@ -11,7 +11,7 @@ describe('Testes de serviço: Update Post', function () {
   });
 
   it('Deve atualizar um Post corretamente', async function () {
-    const reqParams: number = 1;
+    const reqParamsMock: number = 1;
     const inputMock: IPost = {
       title: 'Jest com Typescript',
       content: 'Não aprendemos a testar codigo em Typescript utilizando Jest',
@@ -23,10 +23,23 @@ describe('Testes de serviço: Update Post', function () {
     });
 
     Sinon.stub(Model, 'update').resolves();
+    Sinon.stub(Model, 'findByPk').resolves(outputMock);
 
     const service = new PostService();
-    const result = await service.update(inputMock);
+    await service.update(reqParamsMock, inputMock);
+
+    const result = await service.readById(reqParamsMock);
 
     expect(result).to.be.equal(outputMock);
-  })
+  });
+
+  // it('Deve retornar uma exceção caso não encontre o POST com o ID informado', async function () {
+  //   const reqParamsMock: number = 10;
+  //   const inputMock: IPost = {
+  //     title: 'Jest com Typescript',
+  //     content: 'Não aprendemos a testar codigo em Typescript utilizando Jest',
+  //   }
+  //   const error: string = `Post with id ${reqParamsMock} not found`;
+
+  // })
 })

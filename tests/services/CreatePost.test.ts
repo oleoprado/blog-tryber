@@ -9,7 +9,7 @@ describe('Testes de serviço: Create Post', function () {
   afterEach(function () {
     Sinon.restore();
   })
-  
+
   it('Deve criar um novo Post', async function () {
     const inputMock: IPost = {
       title: 'Typescript na pratica',

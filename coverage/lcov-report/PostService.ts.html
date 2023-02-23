@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>10/11</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -86,13 +86,17 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -103,11 +107,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ModelStatic, where } from "sequelize";
 import Post from "../../database/models/Post";
@@ -116,21 +124,25 @@ import IServicePost from "../interfaces/IServicePost";
 &nbsp;
 export default class PostService implements IServicePost {
   protected model: ModelStatic&lt;Post&gt; = Post // modelStatic(type do sequelize) é a represetação das tabelas do db. Aqui esta inicializando a model.
-  
+&nbsp;
   async create(dto: IPost): Promise&lt;Post&gt; {
     return await this.model.create({ ...dto });
   }
-  
+&nbsp;
   async readAll(): Promise&lt;Post[]&gt; {
     return await this.model.findAll();
   }
 &nbsp;
-  async readById(id: number): Promise&lt;Post | null&gt;{
+  async readById(id: number): Promise&lt;Post | null&gt; {
     return await this.model.findByPk(id);
   }
-  
-<span class="fstat-no" title="function not covered" >  upadte(</span>): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >    throw new Error("Method not implemented.");</span>
+&nbsp;
+  async update(id: number, dto: IPost): Promise&lt;Post&gt; {
+    const post = await this.model.findByPk(id);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!post) <span class="cstat-no" title="statement not covered" >throw new Error(`Post with id ${id} not found`);</span>
+    await this.model.update({ ...dto }, { where: { id } });
+&nbsp;
+    return post;
   }
 }</pre></td></tr></table></pre>
 
@@ -139,7 +151,7 @@ export default class PostService implements IServicePost {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-22T18:22:59.660Z
+                at 2023-02-23T11:18:23.158Z
             </div>
         <script src="prettify.js"></script>
         <script>
