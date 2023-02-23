@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import { Model } from "sequelize";
 import Sinon from "sinon"
 import IPost from "../../src/api/interfaces/IPost";
@@ -33,13 +33,17 @@ describe('Testes de serviço: Update Post', function () {
     expect(result).to.be.equal(outputMock);
   });
 
-  // it('Deve retornar uma exceção caso não encontre o POST com o ID informado', async function () {
-  //   const reqParamsMock: number = 10;
-  //   const inputMock: IPost = {
-  //     title: 'Jest com Typescript',
-  //     content: 'Não aprendemos a testar codigo em Typescript utilizando Jest',
-  //   }
-  //   const error: string = `Post with id ${reqParamsMock} not found`;
-
-  // })
+  it('Deve retornar uma exceção caso não encontre o POST com o ID informado', async function () {
+    const reqParamsMock: number = 10;
+    const inputMock: IPost = { title: 'Jest', content: 'Não aprendemos ...' };
+    const errorMock: string = `Post with id ${reqParamsMock} not found`;
+    const service = new PostService();
+  
+    try {
+      await service.update(reqParamsMock, inputMock);
+    } catch (error) {
+      if (error instanceof Error)
+      expect(error.message).to.equal(errorMock)
+    }
+  })
 })
