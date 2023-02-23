@@ -1,27 +1,27 @@
 import { ModelStatic } from "sequelize";
 import Comment from "../../database/models/Comment";
-import Post from "../../database/models/Post";
 import IComment from "../interfaces/IComment";
-import IPost from "../interfaces/IPost";
 import IServiceComment from "../interfaces/IServiceComment";
 
 export default class CommentService implements IServiceComment {
   protected model: ModelStatic<Comment> = Comment;
-
-  create(dto: IComment): Promise<Comment> {
-    throw new Error("Method not implemented.");
-  }
-  readAll(): Promise<Comment[]> {
-    throw new Error("Method not implemented.");
-  }
-  readById(id: string): Promise<Comment> {
-    throw new Error("Method not implemented.");
-  }
-  update(id: number, dto: IComment): Promise<Comment> {
-    throw new Error("Method not implemented.");
-  }
-  delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+  
+  async create(dto: IComment): Promise<Comment> {
+    return await this.model.create({ ...dto });
   }
 
+  async readAll(): Promise<Comment[]> {
+    return await this.model.findAll();
+  }
+
+  async readById(id: number): Promise<Comment> {
+    await this._verifyIFCommentExist(id);
+    const comment = await this.model.findByPk(id);
+    return comment as Comment;
+  }
+
+  private async _verifyIFCommentExist(id: number): Promise<void> {
+    const comment = await this.model.findByPk(id);
+    if (!comment) throw new Error(`Comment with id ${id} not found`);
+  }
 }

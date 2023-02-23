@@ -33,7 +33,7 @@ export default class PostService implements IServicePost {
     await this.model.destroy({ where: { id } });
   }
 
-  private async _verifyIfPostExist(id: number) {    
+  private async _verifyIfPostExist(id: number): Promise<void> {    
     const post = await this.model.findByPk(id);
     if (!post) throw new Error(`Post with id ${id} not found`);
   }
