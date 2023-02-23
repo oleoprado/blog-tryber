@@ -14,21 +14,28 @@ export default class PostService implements IServicePost {
     return await this.model.findAll();
   }
 
-  async readById(id: number): Promise<Post | null> {
-    return await this.model.findByPk(id);
+  async readById(id: number): Promise<Post> {
+    await this._verifyIfPostExist(id);
+    const post = await this.model.findByPk(id);
+    return post as Post;
   }
 
   async update(id: number, dto: IPost): Promise<Post> {
-    const post = await this.model.findByPk(id);
-    if (!post) throw new Error(`Post with id ${id} not found`);
-    await this.model.update({ ...dto }, { where: { id } });
+    await this._verifyIfPostExist(id);
 
-    return post;
+    await this.model.update({ ...dto }, { where: { id } });
+    const updatedPost = await this.model.findByPk(id);
+    return updatedPost as Post;
   }
 
   async delete(id: number): Promise<void> {
-    const post = await this.model.findByPk(id);
-    if (!post) throw new Error(`Post with id ${id} not found`);
+    await this._verifyIfPostExist(id);
     await this.model.destroy({ where: { id } });
   }
+
+  private async _verifyIfPostExist(id: number) {    
+    const post = await this.model.findByPk(id);
+    if (!post) throw new Error(`Post with id ${id} not found`);
+  }
 }
+

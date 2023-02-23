@@ -9,7 +9,7 @@ describe('Teste de serviço: Delete Post', function() {
     Sinon.restore();
   });
 
-  it('Verificar se um Post é deletado é apagado com sucesso', async function() {
+  it('Verificar se um Post é deletado com sucesso', async function() {
     const reqParamsMock = 1;
     const outputMock: Post = new Post({
       id: 1,
@@ -37,5 +37,5 @@ describe('Teste de serviço: Delete Post', function() {
       if (error instanceof Error)
       expect(error.message).to.equal(errorMock);
     }
-  })
+  });
 })
