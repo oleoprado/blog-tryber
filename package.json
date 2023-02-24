@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:mocha": "mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000",
-    "test:mocha:coverage": "nyc mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000",
+    "test:mocha:coverage": "nyc mocha -r ts-node/register tests/**/*.test.ts tests/**/**/*.test.ts --exit -t 60000",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate"
   },
   "keywords": [],

@@ -49,15 +49,23 @@ describe('Testes para rota Post', function() {
 
     // assertion
     expect(response.body).to.be.deep.equal(outputMock);
-  })
+  });
+
+  it('Deve retornar o post correspondente ao ID informado', async function() {
+    const outputMock = {
+      title: 'Typescript',
+      content: 'Typescript agiliza a vida...'
+    } as Post;
+
+    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+    const response = await chai.request(app.app).get('/post/1').send(outputMock);
+
+    expect(response.body).to.be.deep.equal(outputMock);
+  });
 
   it('Deve retornar 404, quando o id não existir', async function() {
     Sinon.stub(Model, 'findByPk').resolves(null);
-
-    // action
     const response = await chai.request(app.app).get('/post/1'); // req via metodo http POST, para a rota '/post' e enviar o 'body'
-
-    // assertion
     expect(response.status).to.be.equal(404);
   })
 })
