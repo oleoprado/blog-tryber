@@ -1,9 +1,9 @@
 import { assert, expect } from "chai";
 import { Model } from "sequelize";
 import Sinon from "sinon";
-import IPost from "../../src/api/interfaces/IPost";
-import PostService from "../../src/api/services/PostService";
-import Post from "../../src/database/models/Post";
+import IPost from "../../../src/api/interfaces/IPost";
+import PostService from "../../../src/api/services/PostService";
+import Post from "../../../src/database/models/Post";
 
 describe('Testes de serviço: Update Post', function () {
   afterEach(function () {
@@ -38,12 +38,12 @@ describe('Testes de serviço: Update Post', function () {
     const inputMock: IPost = { title: 'Jest', content: 'Não aprendemos ...' };
     const errorMock: string = `Post with id ${invalidReqParamsMock} not found`;
     const service = new PostService();
-  
+
     try {
-      await service.update(invalidReqParamsMock, inputMock);     
+      await service.update(invalidReqParamsMock, inputMock);
     } catch (error) {
       if (error instanceof Error)
-      expect(error.message).to.equal(errorMock);
+        expect(error.message).to.equal(errorMock);
     }
   });
 })

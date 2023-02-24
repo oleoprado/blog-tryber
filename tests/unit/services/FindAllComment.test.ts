@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import Sinon from "sinon"
-import CommentService from "../../src/api/services/CommentService";
-import Comment from '../../src/database/models/Comment';
+import CommentService from "../../../src/api/services/CommentService";
+import Comment from '../../../src/database/models/Comment';
 
 describe('Testes de serviço: FindAll Comment', function () {
   afterEach(function () {

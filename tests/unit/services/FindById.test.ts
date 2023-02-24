@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { Model } from "sequelize";
 import Sinon from "sinon";
-import PostService from "../../src/api/services/PostService";
-import Post from "../../src/database/models/Post";
+import PostService from "../../../src/api/services/PostService";
+import Post from "../../../src/database/models/Post";
 
-describe('Teste de serviço: FindById Post', function() {
-  afterEach(function() {
+describe('Teste de serviço: FindById Post', function () {
+  afterEach(function () {
     Sinon.restore();
   });
 

@@ -1,16 +1,16 @@
 import { expect } from "chai";
 import { Model } from "sequelize";
 import Sinon from "sinon"
-import IComment from "../../src/api/interfaces/IComment";
-import CommentService from "../../src/api/services/CommentService";
-import Comment from '../../src/database/models/Comment';
+import IComment from "../../../src/api/interfaces/IComment";
+import CommentService from "../../../src/api/services/CommentService";
+import Comment from '../../../src/database/models/Comment';
 
-describe('Testes de serviço: Create Comment', function() {
-  afterEach(function() {
+describe('Testes de serviço: Create Comment', function () {
+  afterEach(function () {
     Sinon.restore();
   });
 
-  it('Deve criar um novo comentario', async function() {
+  it('Deve criar um novo comentario', async function () {
     const inputMock: IComment = {
       content: 'que legal seu post, parabens',
       postId: 1,
