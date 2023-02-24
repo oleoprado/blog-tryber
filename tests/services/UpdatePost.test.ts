@@ -40,7 +40,7 @@ describe('Testes de serviço: Update Post', function () {
     const service = new PostService();
   
     try {
-      await service.update(invalidReqParamsMock, inputMock);      
+      await service.update(invalidReqParamsMock, inputMock);     
     } catch (error) {
       if (error instanceof Error)
       expect(error.message).to.equal(errorMock);

@@ -27,6 +27,10 @@ export default class CommentService implements IServiceComment {
     return comment as Comment;
   }
 
+  delete(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
   private async _verifyIFCommentExist(id: number): Promise<void> {
     const comment = await this.model.findByPk(id);
     if (!comment) throw new Error(`Comment with id ${id} not found`);
