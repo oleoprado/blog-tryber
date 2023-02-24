@@ -16,6 +16,7 @@ export default class PostService implements IServicePost {
 
   async readById(id: number): Promise<Post> {
     await this._verifyIfPostExist(id);
+   
     const post = await this.model.findByPk(id);
     return post as Post;
   }
