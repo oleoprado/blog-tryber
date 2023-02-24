@@ -1,5 +1,6 @@
 import { ModelStatic } from "sequelize";
 import Comment from "../../database/models/Comment";
+import IdNotFoundError from "../errors/idNotFoundError";
 import IComment from "../interfaces/IComment";
 import IServiceComment from "../interfaces/IServiceComment";
 
@@ -34,6 +35,6 @@ export default class CommentService implements IServiceComment {
 
   private async _verifyIFCommentExist(id: number): Promise<void> {
     const comment = await this.model.findByPk(id);
-    if (!comment) throw new Error(`Comment with id ${id} not found`);
+    if (!comment) throw new IdNotFoundError(`Comment with id ${id} not found`);
   }
 }

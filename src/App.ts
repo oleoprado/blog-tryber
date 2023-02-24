@@ -1,5 +1,7 @@
 import 'express-async-errors';
 import express from 'express';
+import postRoutes from './api/routes/PostRoutes';
+import ErrorHandler from './api/middlewares/ErrorHandler';
 
 export default class App {
   public app: express.Express;
@@ -8,6 +10,7 @@ export default class App {
     this.app = express(); //inicializar o express
     this.initAuthHeader();
     this.initRoutes();
+    this.initMiddleware();
   }
 
   // FIXME: este metodo configura acesso de entrada a API
@@ -25,7 +28,11 @@ export default class App {
 
   // FIXME: inicializar as rotas aqui
   private initRoutes(): void {
+    this.app.use(postRoutes);
+  }
 
+  private initMiddleware(): void {
+    this.app.use(ErrorHandler.handle);
   }
 
   public start(PORT: string | number): void {

@@ -1,5 +1,6 @@
 import { ModelStatic } from "sequelize";
 import Post from "../../database/models/Post";
+import IdNotFoundError from "../errors/idNotFoundError";
 import IPost from "../interfaces/IPost";
 import IServicePost from "../interfaces/IServicePost";
 
@@ -36,7 +37,7 @@ export default class PostService implements IServicePost {
 
   private async _verifyIfPostExist(id: number): Promise<void> {    
     const post = await this.model.findByPk(id);
-    if (!post) throw new Error(`Post with id ${id} not found`);
+    if (!post) throw new IdNotFoundError(`Post with id ${id} not found`);
   }
 }
 
