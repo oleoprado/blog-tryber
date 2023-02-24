@@ -60,6 +60,7 @@ describe('Testes para rota Post', function() {
     Sinon.stub(Model, 'findByPk').resolves(outputMock);
     const response = await chai.request(app.app).get('/post/1');
 
+    expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(outputMock);
   });
 
