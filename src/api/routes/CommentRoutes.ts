@@ -9,6 +9,7 @@ const commentController = new CommentController(commentService);
 commentRoutes
   .post('/comment', (req: Request, res: Response) => commentController.create(req, res))
   .get('/comment', (req: Request, res: Response) => commentController.readAll(req, res))
-  .get('/comment/:id', (req: Request, res: Response) => commentController.readById(req, res));
+  .get('/comment/:id', (req: Request, res: Response) => commentController.readById(req, res))
+  .put('/comment/:id', (req: Request, res: Response) => commentController.update(req, res));
 
 export default commentRoutes;

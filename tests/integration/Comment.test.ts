@@ -16,15 +16,8 @@ describe('Testes para a rota Comment', function() {
   });
 
   it('Metodo POST: Deve cadastrar um Comment com sucesso e retornar o comment criado', async function() {
-    const inputMock: IComment = {
-      content: 'Muito legal seu trabalho!',
-      postId: 2
-    }
-    const outputMock: Comment = {
-      id: 1,
-      content: 'Muito legal seu trabalho!',
-      postId: 2
-    } as Comment;
+    const inputMock: IComment = { content: 'Muito legal seu trabalho!', postId: 2 };
+    const outputMock: Comment = { id: 1, content: 'Muito legal seu trabalho!', postId: 2 } as Comment;
     Sinon.stub(Model, 'create').resolves(outputMock);
 
     const response = await chai.request(app.app).post('/comment').send(inputMock);
@@ -54,4 +47,38 @@ describe('Testes para a rota Comment', function() {
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(outputMock);
   });
+
+  it('Metodo GET: Deve retornar 404, quando o id não existir', async function() {
+    Sinon.stub(Model, 'findByPk').resolves(null);
+    const response = await chai.request(app.app).get('/comment/420');
+    expect(response.status).to.be.equal(404);
+  });
+
+  it('Metodo PUT: Deve atualizar um Comment existente com sucesso e retornar o Comment atualizado', async function() {
+    const reqParamsMock = 1;
+    const inputMock: IComment = { content: 'Caracas, que demais!', postId: 2 };
+    const outputMock: Comment = { id: 1, content: 'Caracas, que demais', postId: 2 } as Comment;
+    
+    Sinon.stub(Model, 'update').resolves();
+    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+
+    const response = await chai.request(app.app).put(`/comment/${reqParamsMock}`).send(inputMock);
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(outputMock);
+  });
+
+  it('Metodo PUT: Deve retornar 404, quando o id não existir', async function() {
+    Sinon.stub(Model, 'findByPk').resolves(null);
+    const response = await chai.request(app.app).get('/comment/420');
+    expect(response.status).to.be.equal(404);
+  });
+
+  it('Metodo DELETE: Deve excluir um Comment existe com sucesso', async function() {
+    const reqParamsMock = 1;
+    Sinon.stub(Model, 'destroy').resolves();
+
+    const response = await chai.request(app.app).delete(`/comment/${reqParamsMock}`);
+    expect(response.status).to.be.equal(200);
+  })
 })

@@ -25,4 +25,11 @@ export default class CommentController {
     const result = await this._service.readById(Number(id));
     return res.status(200).json(result);
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { content, postId } = req.body;
+    const result = await this._service.update(Number(id), {content, postId});
+    return res.status(200).json(result);
+  }
 }
