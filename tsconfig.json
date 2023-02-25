@@ -101,5 +101,5 @@
     "skipLibCheck":true,
     "rootDir": "./src",
     "outDir": "./build"                                 /* Skip type checking all .d.ts files. */
-  }
+  },
 }

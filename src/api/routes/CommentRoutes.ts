@@ -10,6 +10,7 @@ commentRoutes
   .post('/comment', (req: Request, res: Response) => commentController.create(req, res))
   .get('/comment', (req: Request, res: Response) => commentController.readAll(req, res))
   .get('/comment/:id', (req: Request, res: Response) => commentController.readById(req, res))
-  .put('/comment/:id', (req: Request, res: Response) => commentController.update(req, res));
+  .put('/comment/:id', (req: Request, res: Response) => commentController.update(req, res))
+  .delete('/comment/:id', (req: Request, res: Response) => commentController.delete(req, res));
 
 export default commentRoutes;

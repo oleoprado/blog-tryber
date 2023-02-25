@@ -74,10 +74,9 @@ describe('Testes para a rota Comment', function() {
     expect(response.status).to.be.equal(404);
   });
 
-  it('Metodo DELETE: Deve excluir um Comment existe com sucesso', async function() {
+  it('Metodo DELETE: Deve excluir um Comment existente', async function() {
     const reqParamsMock = 1;
     Sinon.stub(Model, 'destroy').resolves();
-
     const response = await chai.request(app.app).delete(`/comment/${reqParamsMock}`);
     expect(response.status).to.be.equal(200);
   })
