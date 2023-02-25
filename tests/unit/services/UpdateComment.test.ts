@@ -19,7 +19,7 @@ describe('Teste de serviço: Update comment', function () {
       postId: 2
     });
     Sinon.stub(Model, 'update').resolves();
-    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+    Sinon.stub(Model, 'findOne').resolves(outputMock);
     const service = new CommentService();
 
     await service.update(reqParamsMock, inputMock);

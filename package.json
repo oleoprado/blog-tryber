@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/Server.ts",
     "test:mocha": "mocha -r ts-node/register tests/**/*.test.ts tests/**/**/*.test.ts --exit -t 60000",
     "test:mocha:coverage": "nyc mocha -r ts-node/register tests/**/*.test.ts tests/**/**/*.test.ts --exit -t 60000",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate"
@@ -23,6 +24,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^10.2.0",
     "mysql2": "^3.1.2",
+    "nodemon": "^2.0.20",
     "nyc": "^15.1.0",
     "sequelize-cli": "^6.6.0",
     "sinon": "^15.0.1",

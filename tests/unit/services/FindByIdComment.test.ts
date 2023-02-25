@@ -17,7 +17,7 @@ describe('Testes de serviço: FindById Comment', function () {
       postId: 1,
     });
 
-    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+    Sinon.stub(Model, 'findOne').resolves(outputMock);
     const service = new CommentService();
     const result = await service.readById(reqParamsMock);
     expect(result).to.be.equal(outputMock);

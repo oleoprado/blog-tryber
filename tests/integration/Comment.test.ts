@@ -40,7 +40,7 @@ describe('Testes para a rota Comment', function() {
   it('Metodo GET: Deve retornar o Comment correspondente ao ID informado', async function() {
     const reqParamsMock = 1;
     const outputMock: Comment = { id: 1,content: 'Muito legal seu trabalho!',postId: 2 } as Comment;
-    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+    Sinon.stub(Model, 'findOne').resolves(outputMock);
 
     const response = await chai.request(app.app).get(`/comment/${reqParamsMock}`);
 

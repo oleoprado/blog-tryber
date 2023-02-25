@@ -12,12 +12,12 @@ export default class CommentService implements IServiceComment {
   }
 
   async readAll(): Promise<Comment[]> {
-    return await this.model.findAll();
+    return await this.model.findAll({ attributes: { exclude: ['post_id'] }});
   }
 
   async readById(id: number): Promise<Comment> {
     await this._verifyIFCommentExist(id);
-    const comment = await this.model.findByPk(id);
+    const comment = await this.model.findOne({ where: { id }, attributes: { exclude: ['post_id'] }});
     return comment as Comment;
   }
 

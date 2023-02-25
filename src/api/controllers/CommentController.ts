@@ -15,7 +15,7 @@ export default class CommentController {
     return res.status(201).json(result);
   }
 
-  async readAll(req: Request, res: Response) {
+  async readAll(_req: Request, res: Response) {
     const result = await this._service.readAll();
     return res.status(200).json(result);
   }
