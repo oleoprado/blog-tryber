@@ -24,4 +24,11 @@ export default class PostController {
     const result = await this._service.readAll();
     return res.status(200).json(result);
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const result = await this._service.update(Number(id), { title, content });
+    return res.status(200).json(result);
+  }
 }

@@ -15,7 +15,7 @@ describe('Testes para rota Post', function() {
     Sinon.restore();
   });
   
-  it('Deve cadastrar um Post com sucesso', async function() {
+  it('Metodo POST: Deve cadastrar um Post com sucesso', async function() {
     // arrange
     const post = {
       title: 'Post teste',
@@ -29,7 +29,7 @@ describe('Testes para rota Post', function() {
     expect(response.status).to.be.equal(201);
   });
 
-  it('Deve cadastrar um Post com sucesso e retornar o objeto criado', async function() {
+  it('Metodo POST: Deve cadastrar um Post com sucesso e retornar o objeto criado', async function() {
     // arrange
     const inputMock: IPost = {
       title: 'Typescript',
@@ -51,7 +51,7 @@ describe('Testes para rota Post', function() {
     expect(response.body).to.be.deep.equal(outputMock);
   });
 
-  it('Deve retornar o post correspondente ao ID informado', async function() {
+  it('Metodo GET: Deve retornar o post correspondente ao ID informado', async function() {
     const outputMock = {
       title: 'Typescript',
       content: 'Typescript agiliza a vida...'
@@ -64,13 +64,13 @@ describe('Testes para rota Post', function() {
     expect(response.body).to.be.deep.equal(outputMock);
   });
 
-  it('Deve retornar 404, quando o id não existir', async function() {
+  it('Metodo GET: Deve retornar 404, quando o id não existir', async function() {
     Sinon.stub(Model, 'findByPk').resolves(null);
     const response = await chai.request(app.app).get('/post/999'); // req via metodo http POST, para a rota '/post' e enviar o 'req.body'
     expect(response.status).to.be.equal(404);
   });
 
-  it('Deve retornar todos os posts cadastrados', async function() {
+  it('Metodo GET: Deve retornar todos os posts cadastrados', async function() {
     const outputMock: Post[] = [{
       id: 1,
       title: 'Typescript',
@@ -81,6 +81,21 @@ describe('Testes para rota Post', function() {
     // action
     const response = await chai.request(app.app).get('/post');
         
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(outputMock);
+  });
+
+  it('Metodo PUT: Deve atualizar um post existente com sucesso e retornar o post atualizado', async function() {
+    const reqParamsMock = 1;
+    const inputMock = { title: 'Node.js', content: 'Node.js veio para...' };
+    const outputMock: Post = { id: 1, title: 'Node.js', content: 'Node.js veio para...' } as Post;
+
+    Sinon.stub(Model, 'update').resolves();
+    Sinon.stub(Model, 'findByPk').resolves(outputMock);
+    
+    const response = await chai.request(app.app).put(`/post/${reqParamsMock}`).send(inputMock);
+    console.log('response.status ===>', response.body);
+    
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(outputMock);
   })
