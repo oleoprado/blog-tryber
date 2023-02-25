@@ -1,6 +1,7 @@
 import 'express-async-errors';
 import express from 'express';
 import postRoutes from './api/routes/PostRoutes';
+import commentRoutes from './api/routes/CommentRoutes';
 import ErrorHandler from './api/middlewares/ErrorHandler';
 
 export default class App {
@@ -29,6 +30,7 @@ export default class App {
   // FIXME: inicializar as rotas aqui
   private initRoutes(): void {
     this.app.use(postRoutes);
+    this.app.use(commentRoutes);
   }
 
   private initMiddleware(): void {

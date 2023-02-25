@@ -31,4 +31,10 @@ export default class PostController {
     const result = await this._service.update(Number(id), { title, content });
     return res.status(200).json(result);
   }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    await this._service.delete(Number(id));
+    return res.status(200).end();
+  }
 }

@@ -10,6 +10,7 @@ postRoutes
   .post('/post', (req: Request, res: Response) => postController.create(req, res))
   .get('/post', (req: Request, res: Response) => postController.readByAll(req, res))
   .get('/post/:id', (req: Request, res: Response) => postController.readById(req, res))
-  .put('/post/:id', (req: Request, res: Response) => postController.update(req, res));
+  .put('/post/:id', (req: Request, res: Response) => postController.update(req, res))
+  .delete('/post/:id', (req: Request, res: Response) => postController.delete(req, res));
 
 export default postRoutes;

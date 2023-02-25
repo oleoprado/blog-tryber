@@ -23,7 +23,7 @@ describe('Testes para rota Post', function() {
     }
 
     // action
-    const response = await chai.request(app.app).post('/post').send(post); // req via metodo http POST, para a rota '/post' e enviar o post
+    const response = await chai.request(app.app).post('/post').send(post); // simular req via metodo http POST, para a rota '/post' e enviar o post
 
     // assertion
     expect(response.status).to.be.equal(201);
@@ -92,11 +92,29 @@ describe('Testes para rota Post', function() {
 
     Sinon.stub(Model, 'update').resolves();
     Sinon.stub(Model, 'findByPk').resolves(outputMock);
-    
+
     const response = await chai.request(app.app).put(`/post/${reqParamsMock}`).send(inputMock);
-    console.log('response.status ===>', response.body);
     
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(outputMock);
-  })
+  });
+
+  it('Metodo PUT: Deve retornar 404, quando o post não existir', async function() {
+    Sinon.stub(Model, 'findByPk').resolves(null);
+    const response = await chai.request(app.app).get('/post/999'); // req via metodo http POST, para a rota '/post' e enviar o 'req.body'
+    expect(response.status).to.be.equal(404);
+  });
+
+  it('Metodo DELETE: Deve excluir um post existe com sucesso', async function() {
+    const reqParamsMock = 1;
+    Sinon.stub(Model, 'destroy').resolves();
+    const response = await chai.request(app.app).delete(`/post/${reqParamsMock}`);
+    expect(response.status).to.be.equal(200);
+  });
+
+  it('Metodo DELETE: Deve retornar 404, quando o post não existir', async function() {
+    Sinon.stub(Model, 'findByPk').resolves(null);
+    const response = await chai.request(app.app).get('/post/999'); // req via metodo http POST, para a rota '/post' e enviar o 'req.body'
+    expect(response.status).to.be.equal(404);
+  });
 })
