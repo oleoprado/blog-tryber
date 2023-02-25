@@ -12,4 +12,7 @@ postRoutes
 postRoutes
   .get('/post/:id', (req: Request, res: Response) => postController.readById(req, res));
 
+postRoutes
+  .get('/post', (req: Request, res: Response) => postController.readByAll(req, res));
+
 export default postRoutes;

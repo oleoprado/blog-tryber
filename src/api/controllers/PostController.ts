@@ -19,4 +19,9 @@ export default class PostController {
     const result = await this._service.readById(Number(id));
     return res.status(200).json(result);
   }
+
+  async readByAll(_req: Request, res: Response) {
+    const result = await this._service.readAll();
+    return res.status(200).json(result);
+  }
 }

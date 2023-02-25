@@ -45,7 +45,7 @@ describe('Testes para rota Post', function() {
     Sinon.stub(Model, 'create').resolves(outputMock);
 
     // action
-    const response = await chai.request(app.app).post('/post').send(inputMock); // req via metodo http POST, para a rota '/post' e enviar o 'body'
+    const response = await chai.request(app.app).post('/post').send(inputMock); // req via metodo http POST, para a rota '/post' e enviar o 'req.body'
 
     // assertion
     expect(response.body).to.be.deep.equal(outputMock);
@@ -66,7 +66,22 @@ describe('Testes para rota Post', function() {
 
   it('Deve retornar 404, quando o id não existir', async function() {
     Sinon.stub(Model, 'findByPk').resolves(null);
-    const response = await chai.request(app.app).get('/post/1'); // req via metodo http POST, para a rota '/post' e enviar o 'body'
+    const response = await chai.request(app.app).get('/post/999'); // req via metodo http POST, para a rota '/post' e enviar o 'req.body'
     expect(response.status).to.be.equal(404);
+  });
+
+  it('Deve retornar todos os posts cadastrados', async function() {
+    const outputMock: Post[] = [{
+      id: 1,
+      title: 'Typescript',
+      content: 'Typescript agiliza a vida...'
+    }] as Post[];
+    
+    Sinon.stub(Model, 'findAll').resolves(outputMock);
+    // action
+    const response = await chai.request(app.app).get('/post');
+        
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(outputMock);
   })
 })
