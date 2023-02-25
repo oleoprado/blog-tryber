@@ -21,7 +21,7 @@ describe('Testes para rota Post', function() {
       title: 'Post teste',
       content: 'Meu primeiro post'
     }
-
+    Sinon.stub(Model, 'create').resolves();
     // action
     const response = await chai.request(app.app).post('/post').send(post); // simular req via metodo http POST, para a rota '/post' e enviar o post
 
@@ -107,6 +107,8 @@ describe('Testes para rota Post', function() {
 
   it('Metodo DELETE: Deve excluir um post existe com sucesso', async function() {
     const reqParamsMock = 1;
+    const postMock: Post = { id: 1, title: 'Node.js', content: 'Node.js veio para...' } as Post;
+    Sinon.stub(Model, 'findByPk').resolves(postMock);
     Sinon.stub(Model, 'destroy').resolves();
     const response = await chai.request(app.app).delete(`/post/${reqParamsMock}`);
     expect(response.status).to.be.equal(200);

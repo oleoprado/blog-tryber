@@ -76,6 +76,8 @@ describe('Testes para a rota Comment', function() {
 
   it('Metodo DELETE: Deve excluir um Comment existente', async function() {
     const reqParamsMock = 1;
+    const commentMock: Comment = { id: 1, content: 'Caracas, que demais', postId: 2 } as Comment;
+    Sinon.stub(Model, 'findByPk').resolves(commentMock);
     Sinon.stub(Model, 'destroy').resolves();
     const response = await chai.request(app.app).delete(`/comment/${reqParamsMock}`);
     expect(response.status).to.be.equal(200);
